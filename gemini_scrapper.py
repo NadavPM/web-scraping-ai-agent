@@ -12,16 +12,19 @@ google_api_key = st.text_input("Google API Key (Gemini)", type="password")
 if google_api_key:
     model = st.radio(
         "Select the Gemini model",
-        ["gemini-1.5-pro", "gemini-1.5-flash", "gemini-2.0-flash-exp"],
-        index=1,  # Default to flash (faster and cheaper)
-        help="Flash is faster and cheaper, Pro is more capable"
+        ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-flash-latest", "gemini-pro-latest"],
+        index=0,  # Default to gemini-2.5-flash (fast and stable)
+        help="Flash is faster and cheaper, Pro is more capable. 'Latest' models auto-update."
     )
 
     graph_config = {
         "llm": {
             "api_key": google_api_key,
             "model": f"google_genai/{model}",
+            "temperature": 0,
         },
+        "verbose": True,
+        "headless": True,
     }
 
     # Get the URL of the website to scrape
